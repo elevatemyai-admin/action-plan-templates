@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Your Service Agreement — elevatemy.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+<style>
+/* =========================================================================
+   SOW TEMPLATE — matches the action-plan page's visual language so it
+   feels like one product, not a disconnected Word doc.
+
+   HOW TO USE:
+   1. Edit the SOW config object near the top of the <script> below —
+      client name, track, tier, price, start date. Everything else
+      (feature list, add-ons) renders automatically from that.
+   2. Deploy alongside index.html and api/ in the same repo/Vercel project.
+   3. Link to it from the action-plan page's footer (already wired in
+      both master templates — look for "View your service agreement").
+
+   NOT AN E-SIGNATURE TOOL. This displays the agreed scope clearly. For
+   real signature collection, use DocuSign/HelloSign/PandaDoc, or confirm
+   with whoever handles your contracts that a typed name is sufficient
+   for how this is being used.
+   ========================================================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1B3A6B;--navy-light:#2A4E8C;
+  --teal:#00A99D;--teal-light:#5BC8C0;--teal-pale:#E1F5F4;
+  --amber:#C4773B;--cream:#F8F6F2;--cream-dark:#EDE9E1;
+  --sand:#8B7355;--white:#ffffff;
+  --text-dark:#1a1a1a;--text-muted:#5a5a5a;--border:#ddd9d0;
+  --radius:12px;--radius-sm:8px;--radius-lg:20px;
+  --emerald:#0F6E56;--red:#c0392b;
+  --d:'Bricolage Grotesque','Georgia',serif;
+  --b:'Inter','Arial',sans-serif;
+  --m:'JetBrains Mono','Courier New',monospace;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--b);background:var(--cream);color:var(--text-dark);line-height:1.6;font-size:16px;min-height:100vh;}
+
+nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 2rem;height:68px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo-icon{width:38px;height:38px;background:var(--navy);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;flex-shrink:0;}
+.nav-logo-icon span{display:block;height:3px;border-radius:2px;background:var(--teal);}
+.nav-logo-icon span:nth-child(2){width:14px;background:var(--teal-light);}
+.nav-logo-icon span:nth-child(1),.nav-logo-icon span:nth-child(3){width:20px;}
+.wordmark{font-family:var(--d);font-size:22px;font-weight:700;letter-spacing:-0.03em;line-height:1;}
+.wordmark .elevate{color:var(--navy);}.wordmark .my{color:var(--teal);}
+.wordmark .dot{color:var(--amber);font-weight:300;font-family:var(--b);}
+.wordmark .ai{color:var(--navy);font-family:var(--m);font-weight:400;font-size:20px;}
+.print-btn{padding:0.5rem 1rem;background:transparent;border:1px solid var(--border);border-radius:7px;font-size:13px;color:var(--text-muted);cursor:pointer;font-weight:600;}
+.print-btn:hover{background:var(--cream);}
+
+.wrap{max-width:720px;margin:0 auto;padding:3rem 1.5rem 5rem;}
+
+.doc-eyebrow{font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:0.5rem;}
+.doc-title{font-family:var(--d);font-size:clamp(1.5rem,4vw,2.1rem);font-weight:700;line-height:1.2;letter-spacing:-0.02em;color:var(--navy);margin-bottom:0.5rem;}
+.doc-meta{font-size:13px;color:var(--text-muted);margin-bottom:2rem;}
+.doc-meta span{display:inline-block;margin-right:1.25rem;}
+
+.section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;margin-bottom:1.25rem;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--sand);margin-bottom:0.9rem;}
+
+.price-row{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:1rem;margin-bottom:1rem;border-bottom:1px solid var(--border);}
+.price-tier{font-family:var(--d);font-size:1.3rem;font-weight:700;color:var(--navy);}
+.price-amount{font-family:var(--d);font-size:1.6rem;font-weight:700;color:var(--teal);text-align:right;}
+.price-amount .unit{font-size:0.6em;font-weight:500;color:var(--text-muted);}
+.price-setup{font-size:12.5px;color:var(--text-muted);margin-bottom:0.5rem;}
+
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.feature-list li{font-size:13.5px;color:var(--text-dark);padding-left:1.3rem;position:relative;line-height:1.5;}
+.feature-list li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:700;}
+
+.addon-row{display:flex;justify-content:space-between;font-size:13px;padding:0.5rem 0;border-bottom:1px solid var(--border);}
+.addon-row:last-child{border-bottom:none;}
+.addon-row .addon-price{color:var(--teal);font-weight:600;white-space:nowrap;margin-left:1rem;}
+
+.boundary-list{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+.boundary-list li{font-size:13.5px;color:var(--text-muted);padding-left:1.3rem;position:relative;line-height:1.55;}
+.boundary-list li::before{content:'—';position:absolute;left:0;color:var(--amber);}
+
+.sign-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.sign-field{border-bottom:1px solid var(--border);padding-bottom:0.5rem;}
+.sign-label{font-size:11px;color:var(--sand);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.3rem;}
+.sign-value{font-size:14px;color:var(--text-dark);min-height:1.4em;}
+
+.not-esign{margin-top:1.5rem;font-size:11.5px;color:var(--sand);line-height:1.6;padding-top:1rem;border-top:1px dashed var(--border);}
+
+@media(max-width:640px){
+  .wrap{padding:2rem 1.25rem 4rem;}
+  .sign-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon"><span style="width:20px"></span><span></span><span style="width:20px"></span></div>
+    <div class="wordmark"><span class="elevate">elevate</span><span class="my">my</span><span class="dot">.</span><span class="ai">ai</span></div>
+  </div>
+  <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+</nav>
+
+<div class="wrap">
+  <div class="doc-eyebrow">Service Agreement</div>
+  <h1 class="doc-title" id="docTitle">Loading...</h1>
+  <div class="doc-meta" id="docMeta"></div>
+
+  <div class="section">
+    <div class="section-label">Scope & Pricing</div>
+    <div class="price-row">
+      <div class="price-tier" id="tierName"></div>
+      <div class="price-amount" id="priceAmount"></div>
+    </div>
+    <div class="price-setup" id="setupFee"></div>
+    <ul class="feature-list" id="featureList"></ul>
+  </div>
+
+  <div class="section" id="addonsSection" style="display:none;">
+    <div class="section-label">Add-Ons Included</div>
+    <div id="addonsList"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">What We Don't Do</div>
+    <ul class="boundary-list">
+      <li>We do not migrate you off an existing platform without a proven small-scale test first.</li>
+      <li>Nothing automated sends without your review and approval.</li>
+      <li id="extraBoundary" style="display:none;"></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Agreement</div>
+    <div class="sign-grid">
+      <div class="sign-field">
+        <div class="sign-label">Client</div>
+        <div class="sign-value" id="clientNameField"></div>
+      </div>
+      <div class="sign-field">
+        <div class="sign-label">Start Date</div>
+        <div class="sign-value" id="startDateField"></div>
+      </div>
+      <div class="sign-field">
+        <div class="sign-label">Prepared By</div>
+        <div class="sign-value" id="preparedByField"></div>
+      </div>
+      <div class="sign-field">
+        <div class="sign-label">Expected First Deliverable</div>
+        <div class="sign-value" id="firstDeliverableField"></div>
+      </div>
+    </div>
+    <div class="not-esign">
+      This page displays the agreed scope clearly — it is not an e-signature tool.
+      For a legally binding signature, route this through a proper e-signature
+      service (DocuSign, HelloSign, PandaDoc) or confirm with whoever handles
+      your contracts that this is sufficient for this engagement.
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   EDIT BELOW THIS LINE TO POPULATE FOR A NEW CLIENT
+   ========================================================================= */
+
+const SOW = {
+  clientName: '',              // e.g. "Alpine Acres Sanctuary Farm"
+  preparedBy: 'Tracy Siri',
+  startDate: '',                // e.g. "July 21, 2026"
+  firstDeliverable: '',          // e.g. "Live action-plan page + first test send"
+
+  // track: 'financial' or 'general'
+  track: 'general',
+
+  // tier options —
+  //   financial: 'diy' | 'dwu' | 'dify'
+  //   general:   'essentials' | 'growth' | 'scale'
+  tier: 'essentials',
+
+  // Only needed if the client is on a group/advisor discount or annual plan —
+  // leave blank if standard pricing applies.
+  discountNote: '',
+
+  // Any add-ons included, matched by label below (edit freely)
+  addons: [
+    // { label: 'AI-Powered Marketing Plan', price: '$2,500 one-time' },
+  ],
+
+  // Anything specific to this engagement beyond the standard two boundaries
+  extraBoundary: ''
+};
+
+/* =========================================================================
+   NO NEED TO EDIT BELOW THIS LINE — pricing data for both tracks
+   ========================================================================= */
+
+const TIERS = {
+  financial: {
+    diy: {
+      name: 'DIY', setup: '$497 setup fee (per advisor)', price: '$197', unit: '/mo per advisor',
+      features: [
+        'AI readiness assessment + personalized roadmap',
+        'Curated AI tool stack guide (CRM, content, compliance)',
+        'Pre-built prompt library for advisors',
+        'Self-paced video training vault',
+        'Marketing plan template + content calendar',
+        'Monthly group Q&A Zoom meeting',
+        'Community access & resource updates'
+      ]
+    },
+    dwu: {
+      name: 'Done With You', setup: '$997 setup fee (per advisor)', price: '$697', unit: '/mo per advisor',
+      features: [
+        'Everything in DIY',
+        'Customized AI dashboard build (your branding)',
+        'Bi-weekly 1:1 coaching sessions',
+        'Monthly strategy Zoom meeting',
+        'Done-with-you marketing plan & content calendar',
+        'CRM workflow setup & AI integration',
+        'Email & social content templates (AI-generated)',
+        'Priority Slack/email support',
+        'Quarterly strategy review',
+        'Staff training — monthly Zoom session'
+      ]
+    },
+    dify: {
+      name: 'Done For You', setup: '$2,997 setup fee (per advisor)', price: '$1,497', unit: '/mo per advisor',
+      features: [
+        'Everything in Done With You',
+        'Full custom AI ecosystem build & integration',
+        'Weekly 1:1 executive coaching via Zoom',
+        'Done-for-you content production (posts, emails, scripts)',
+        'Lead gen automation setup',
+        'Dedicated account strategist',
+        'Monthly performance reporting & optimization',
+        'White-glove onboarding & ongoing support',
+        'Staff training — bi-weekly Zoom sessions',
+        'Custom staff training curriculum for your firm'
+      ]
+    }
+  },
+  general: {
+    essentials: {
+      name: 'Essentials', setup: '', price: '$199', unit: '/mo',
+      features: [
+        'Full AI readiness assessment & report',
+        'Personalized 30-day AI action plan',
+        '1× monthly strategy call (45 min)',
+        'Curated AI tool recommendations for your industry',
+        'Workflow automation starter templates',
+        'Email support (2 business day response)'
+      ]
+    },
+    growth: {
+      name: 'Growth', setup: '', price: '$490', unit: '/mo',
+      features: [
+        'Everything in Essentials',
+        'Personalized AI roadmap (90 days)',
+        '2× monthly strategy calls (60 min each)',
+        'AI tool setup & integrations support',
+        'Team training sessions (up to 5 staff)',
+        'Priority email & chat support',
+        'Monthly progress report'
+      ]
+    },
+    scale: {
+      name: 'Scale', setup: '', price: '$999', unit: '/mo starting at',
+      features: [
+        'Everything in Growth',
+        'Dedicated AI implementation consultant',
+        'Custom AI solution development',
+        'Unlimited staff training',
+        'Integration with existing systems',
+        'Quarterly business impact reviews',
+        'SLA-backed support',
+        'Executive AI briefings'
+      ]
+    }
+  }
+};
+
+function render(){
+  const tierData = TIERS[SOW.track][SOW.tier];
+
+  document.getElementById('docTitle').textContent =
+    SOW.clientName ? `Service Agreement — ${SOW.clientName}` : 'Service Agreement';
+
+  const metaParts = [];
+  if(SOW.startDate) metaParts.push(`Start: ${SOW.startDate}`);
+  if(SOW.preparedBy) metaParts.push(`Prepared by: ${SOW.preparedBy}`);
+  document.getElementById('docMeta').innerHTML = metaParts.map(p => `<span>${p}</span>`).join('');
+
+  document.getElementById('tierName').textContent = tierData.name;
+  document.getElementById('priceAmount').innerHTML = `${tierData.price}<span class="unit">${tierData.unit}</span>`;
+  document.getElementById('setupFee').textContent = tierData.setup + (SOW.discountNote ? ` · ${SOW.discountNote}` : '');
+  document.getElementById('featureList').innerHTML = tierData.features.map(f => `<li>${f}</li>`).join('');
+
+  const addonsSection = document.getElementById('addonsSection');
+  if(SOW.addons && SOW.addons.length){
+    addonsSection.style.display = 'block';
+    document.getElementById('addonsList').innerHTML = SOW.addons.map(a =>
+      `<div class="addon-row"><span>${a.label}</span><span class="addon-price">${a.price}</span></div>`
+    ).join('');
+  }
+
+  if(SOW.extraBoundary){
+    const el = document.getElementById('extraBoundary');
+    el.textContent = SOW.extraBoundary;
+    el.style.display = 'block';
+  }
+
+  document.getElementById('clientNameField').textContent = SOW.clientName || '—';
+  document.getElementById('startDateField').textContent = SOW.startDate || '—';
+  document.getElementById('preparedByField').textContent = SOW.preparedBy || '—';
+  document.getElementById('firstDeliverableField').textContent = SOW.firstDeliverable || '—';
+}
+render();
+</script>
+</body>
+</html>
