@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="color-scheme" content="light"/>
+<title>Elevate Go-Live Toolkit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{color-scheme:light;}
+:root{
+  --navy:#1B3A6B;--navy-light:#2A4E8C;
+  --teal:#00A99D;--teal-light:#5BC8C0;--teal-pale:#E1F5F4;
+  --amber:#C4773B;--cream:#F8F6F2;--cream-dark:#EDE9E1;
+  --sand:#8B7355;--white:#ffffff;
+  --text-dark:#1a1a1a;--text-muted:#5a5a5a;--border:#ddd9d0;
+  --radius:12px;--radius-sm:8px;--radius-lg:20px;
+  --emerald:#0F6E56;--red:#c0392b;
+  --d:'Bricolage Grotesque','Georgia',serif;
+  --b:'Inter','Arial',sans-serif;
+  --m:'JetBrains Mono','Courier New',monospace;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--b);background:var(--cream);color:var(--text-dark);line-height:1.65;font-size:16px;min-height:100vh;}
+
+nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 2rem;height:68px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
+.nav-logo{display:flex;align-items:center;gap:12px;}
+.nav-logo-icon{width:38px;height:38px;background:var(--navy);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;flex-shrink:0;}
+.nav-logo-icon span{display:block;height:3px;border-radius:2px;background:var(--teal);}
+.nav-logo-icon span:nth-child(2){width:14px;background:var(--teal-light);}
+.nav-logo-icon span:nth-child(1),.nav-logo-icon span:nth-child(3){width:20px;}
+.wordmark{font-family:var(--d);font-size:22px;font-weight:700;letter-spacing:-0.03em;line-height:1;}
+.wordmark .elevate{color:var(--navy);}.wordmark .my{color:var(--teal);}
+.wordmark .dot{color:var(--amber);font-weight:300;font-family:var(--b);}
+.wordmark .ai{color:var(--navy);font-family:var(--m);font-weight:400;font-size:20px;}
+.nav-sub{font-size:12.5px;color:var(--text-muted);font-weight:600;}
+.print-btn{padding:0.5rem 1rem;background:transparent;border:1px solid var(--border);border-radius:7px;font-size:13px;color:var(--text-muted);cursor:pointer;font-weight:600;}
+.print-btn:hover{background:var(--cream);}
+
+.wrap{max-width:840px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
+
+.hero-eyebrow{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:0.5rem;}
+.hero-title{font-family:var(--d);font-size:clamp(1.7rem,4vw,2.3rem);font-weight:700;line-height:1.2;letter-spacing:-0.02em;color:var(--navy);margin-bottom:0.6rem;}
+.hero-sub{font-size:14.5px;color:var(--text-muted);line-height:1.65;max-width:600px;}
+
+.toc{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:1.5rem;}
+.toc a{font-size:12.5px;font-weight:600;color:var(--navy);background:var(--white);border:1px solid var(--border);border-radius:20px;padding:0.4rem 0.9rem;text-decoration:none;}
+.toc a:hover{background:var(--teal-pale);border-color:var(--teal);}
+
+.section{margin-top:2.75rem;}
+.section-num{font-family:var(--d);font-size:0.75rem;font-weight:700;color:var(--teal);letter-spacing:0.06em;}
+.section-title{font-family:var(--d);font-size:1.5rem;font-weight:700;color:var(--navy);margin-top:0.3rem;margin-bottom:0.4rem;letter-spacing:-0.01em;}
+.section-note{font-size:13px;font-style:italic;color:var(--sand);margin-bottom:1.25rem;line-height:1.6;}
+
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1.1rem;}
+.card-title{font-family:var(--d);font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:0.7rem;display:flex;align-items:center;gap:0.6rem;}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--d);font-size:0.85rem;font-weight:700;flex-shrink:0;}
+
+.checklist{list-style:none;display:flex;flex-direction:column;gap:0.55rem;margin:0.75rem 0;}
+.checklist li{font-size:13.5px;color:var(--text-dark);padding-left:1.6rem;position:relative;line-height:1.55;}
+.checklist li::before{content:'✓';position:absolute;left:0;top:0;color:var(--teal);font-weight:700;background:var(--teal-pale);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;}
+
+.code-block{background:var(--navy);color:#E8EEF5;font-family:var(--m);font-size:12.5px;padding:1rem 1.2rem;border-radius:var(--radius-sm);margin:0.75rem 0;overflow-x:auto;line-height:1.7;}
+.code-block .comment{color:#8FA5C4;}
+
+.callout{background:var(--teal-pale);border-left:3px solid var(--teal);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:0.9rem 1.1rem;margin:0.9rem 0;font-size:13px;color:var(--text-dark);line-height:1.6;}
+.callout strong{color:var(--navy);}
+
+.file-list{display:flex;flex-direction:column;gap:0.4rem;margin:0.75rem 0;}
+.file-item{display:flex;align-items:center;gap:0.6rem;font-family:var(--m);font-size:12.5px;color:var(--navy);background:var(--cream);border-radius:6px;padding:0.5rem 0.8rem;}
+
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:13px;}
+th{background:var(--navy);color:#fff;text-align:left;padding:0.65rem 0.9rem;font-weight:600;font-size:12px;}
+th:first-child{border-radius:8px 0 0 0;}
+th:last-child{border-radius:0 8px 0 0;}
+td{padding:0.65rem 0.9rem;border-bottom:1px solid var(--border);color:var(--text-dark);vertical-align:top;}
+tr:nth-child(even) td{background:var(--cream);}
+.tier-popular{color:var(--teal);font-weight:700;}
+
+.trade-table td:first-child{color:var(--text-muted);font-style:italic;}
+.trade-table td:last-child{color:var(--text-dark);}
+.trade-table strong{color:var(--navy);}
+
+.addon-note{font-size:12.5px;color:var(--text-muted);line-height:1.7;margin-top:0.5rem;}
+
+.total-banner{background:linear-gradient(135deg, var(--teal-pale) 0%, var(--white) 100%);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;text-align:center;margin-top:1.5rem;}
+.total-banner .num{font-family:var(--d);font-size:1.6rem;font-weight:700;color:var(--teal);}
+.total-banner .label{font-size:12.5px;color:var(--text-muted);margin-top:0.2rem;}
+
+.footer-note{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:12px;color:var(--sand);text-align:center;}
+
+@media print{
+  nav{position:static;}
+  .print-btn{display:none;}
+  body{background:#fff;}
+}
+@media(max-width:640px){
+  .wrap{padding:2rem 1.1rem 4rem;}
+  .card{padding:1.2rem 1.3rem;}
+  table{font-size:11.5px;}
+  th, td{padding:0.5rem 0.6rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon"><span style="width:20px"></span><span></span><span style="width:20px"></span></div>
+    <div>
+      <div class="wordmark"><span class="elevate">elevate</span><span class="my">my</span><span class="dot">.</span><span class="ai">ai</span></div>
+    </div>
+  </div>
+  <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+</nav>
+
+<div class="wrap">
+  <div class="hero-eyebrow">Internal Reference</div>
+  <h1 class="hero-title">Go-Live Toolkit</h1>
+  <p class="hero-sub">Everything below is finished — pricing filled in, structure decided, ready to use. Not a to-do list; a reference to run from.</p>
+
+  <div class="toc">
+    <a href="#sop">① Onboarding SOP</a>
+    <a href="#value-trade">② Value-Framing Pattern</a>
+    <a href="#sow">③ The SOW</a>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section" id="sop">
+    <div class="section-num">SECTION ①</div>
+    <div class="section-title">Onboarding SOP — Building a New Client, Start to Finish</div>
+    <div class="section-note">One linear runbook. Matt or Tracy can run this solo without cross-referencing five other docs.</div>
+
+    <div class="callout">
+      <strong>Where the master templates live:</strong> GitHub —
+      <code style="font-family:var(--m); background:var(--white); padding:1px 5px; border-radius:4px;">elevatemyai-admin/action-plan-templates</code>.
+      Claude pushes updates directly there; GitHub Desktop pulls it down like your other repos — no more manual upload/download.
+      <div class="file-list" style="margin-top:0.75rem;">
+        <div class="file-item">📄 elevate-action-plan-master-light.html</div>
+        <div class="file-item">📄 elevate-action-plan-master-dark.html</div>
+        <div class="file-item">📄 sow-template.html</div>
+        <div class="file-item">📄 api-thoughts-template.js <span style="color:var(--sand); font-family:var(--b); font-style:italic;">→ save as thoughts.js inside an api/ subfolder</span></div>
+        <div class="file-item">📄 master-template-chat.js <span style="color:var(--sand); font-family:var(--b); font-style:italic;">→ save as chat.js inside an api/ subfolder</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="step-num">1</span> Intake + Populate, in One Pass</div>
+      <p style="font-size:13.5px; color:var(--text-muted);">Claude · ~5 min · all in the same chat</p>
+      <p style="font-size:13.5px; margin-top:0.6rem;">Paste the discovery call transcript into a Claude chat. In that same message, also state which pricing tier was discussed/agreed. Ask Claude to do everything at once:</p>
+      <ul class="checklist">
+        <li>Extract business type, current tools, biggest time-sink, what they're nervous about, what's off-limits, the smallest realistic first win, who approves changes</li>
+        <li>Directly output the populated <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">CLIENT</code>, <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">TECH_STACK</code>, and <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">PLAN</code> code blocks, ready to paste in</li>
+        <li>Directly output the populated <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">SOW</code> config block, ready to paste in</li>
+      </ul>
+      <div class="callout"><strong>Fallback, rare case only:</strong> if a call genuinely wasn't recorded, type the same list by hand from memory before it fades.</div>
+      <div class="callout"><strong>How to know which tier to use:</strong> this is a business decision, not something Claude should guess from a transcript. Either it was explicitly agreed on the call, or it's still open between you and Matt — decide first, then include it in the same message. Never let Claude infer or default a pricing tier.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="step-num">2</span> Create the Empty GitHub Repo</div>
+      <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:0.6rem;">Still a manual step — fine-grained tokens can't create brand-new repos, only push to ones that already exist.</p>
+      <ul class="checklist">
+        <li>Go to github.com, logged in as <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">elevatemyai-admin</code></li>
+        <li>New repository, name it <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">[clientname]-action-plan</code></li>
+        <li>Public or private, no README, no license</li>
+        <li>Settings → Developer settings → your fine-grained token → Edit → add this new repo to its scope</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="step-num">3</span> Claude Pushes Everything Directly</div>
+      <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:0.6rem;">No pencil-icon editing, no drag-and-drop upload — proven reliable across both Devon's and Alpine's builds.</p>
+      <ul class="checklist">
+        <li>Tell Claude the repo now exists and paste the token if it's a new session</li>
+        <li>Claude reads the master template + Step 1's blocks, populates <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">index.html</code>, <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">sow.html</code>, <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">api/chat.js</code>, and <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">api/thoughts.js</code></li>
+        <li>Claude validates each file's JS syntax before pushing, then pushes all four directly into the new repo</li>
+        <li>In <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">api/thoughts.js</code>, confirm <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">REDIS_KEY</code> matches this client's <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">CLIENT.slug</code> — Claude should set this correctly on its own, just worth a glance</li>
+      </ul>
+      <div class="callout">If Claude ever can't push (expired token, missing repo scope), fall back to the old pencil-icon method: click the file in the repo → pencil icon → paste the block → commit.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="step-num">4</span> Deploy to Vercel</div>
+      <ul class="checklist">
+        <li>vercel.com → Add New → Project → Import the new repo</li>
+        <li>Framework preset: Other → Deploy</li>
+        <li>Settings → Environment Variables → add <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">ANTHROPIC_API_KEY</code> (same key already in use — if it ever comes back "invalid," generate a fresh one in console.anthropic.com rather than debugging the copy)</li>
+        <li>Storage tab (top-level, not inside the project) → find the existing Upstash Redis database → <strong>Connect Project</strong> → select this new project. This wires up <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">KV_REST_API_URL</code>/<code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">KV_REST_API_TOKEN</code> automatically — needed for "Drop a thought" to work</li>
+        <li>Redeploy once all env vars are saved (Deployments tab → ⋯ on the latest one → Redeploy)</li>
+      </ul>
+      <div class="callout">Test both live chat boxes before sending: "Talk it through" should get a real reply, and "Drop a thought" should actually save and reload on refresh. Visiting <code style="font-family:var(--m);">/api/thoughts</code> directly in the browser shows the raw API response if something's off.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="step-num">5</span> Send It</div>
+      <ul class="checklist">
+        <li>Grab the live <code style="font-family:var(--m); background:var(--cream); padding:1px 5px; border-radius:4px;">.vercel.app</code> URL</li>
+        <li>Send to the client — their action-plan page links to their SOW itself, so one link covers both</li>
+      </ul>
+    </div>
+
+    <div class="total-banner">
+      <div class="num">45-75 minutes</div>
+      <div class="label">total time per client with Claude pushing directly — adjust once you've run this leaner flow a couple more times</div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section" id="value-trade">
+    <div class="section-num">SECTION ②</div>
+    <div class="section-title">Value-Framing Rewrite Pattern</div>
+    <div class="section-note">A pattern to apply, not a doc to write. Two real examples so Step 1 above has something concrete to copy.</div>
+
+    <div class="card">
+      <table class="trade-table">
+        <tr><th>Instead of this</th><th>Write this</th></tr>
+        <tr>
+          <td>"Pull and segment your first 500 test contacts"</td>
+          <td><strong>You give us:</strong> 1 hour reviewing your export together. <strong>You get back:</strong> the 3-4 hours you'd otherwise spend manually cross-referencing it yourself.</td>
+        </tr>
+        <tr>
+          <td>"Send one test newsletter to the first 500"</td>
+          <td><strong>You give us:</strong> 15 minutes approving one draft. <strong>You get back:</strong> a finished newsletter — the part that normally eats half a day.</td>
+        </tr>
+      </table>
+      <div class="callout">If you don't have a real number, say so honestly rather than guessing — "roughly 2-3 hours for most small businesses" is fine; a fabricated precise number is not.</div>
+      <div class="callout"><strong>New field pair:</strong> if a step has a genuine before/after hour estimate, also include <code style="font-family:var(--m);">timeNow</code> and <code style="font-family:var(--m);">timeWithAI</code> (in hours) alongside the usual <code style="font-family:var(--m);">youGive</code>/<code style="font-family:var(--m);">youGetBack</code> text. When both are set, the step shows a visual "Now vs. With AI assist" bar comparison instead of the plain chip. Leave both out for strategic or exploratory steps that don't have a clean before/after — forcing a number onto those is worse than showing nothing.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section" id="sow">
+    <div class="section-num">SECTION ③</div>
+    <div class="section-title">The SOW — a Real Page, Not a Markdown Block</div>
+    <div class="section-note">See <code style="font-family:var(--m);">sow-template.html</code> — fill in one config object with name, track, tier, and price; it renders automatically. Both master templates link to it from the footer.</div>
+
+    <div class="card">
+      <div class="card-title">💼 Financial Services <span style="font-size:11px; color:var(--text-muted); font-weight:400;">(per advisor)</span></div>
+      <table>
+        <tr><th>Tier</th><th>Setup Fee</th><th>Monthly</th><th>Includes</th></tr>
+        <tr>
+          <td>DIY</td><td>$497</td><td>$197/mo</td>
+          <td>Assessment + roadmap, tool-stack guide, prompt library, self-paced training, marketing template, monthly group Q&A</td>
+        </tr>
+        <tr>
+          <td class="tier-popular">Done With You ★</td><td>$997</td><td>$697/mo</td>
+          <td>+ custom AI dashboard, bi-weekly 1:1 coaching, CRM/AI integration, priority support, quarterly review, monthly staff training</td>
+        </tr>
+        <tr>
+          <td>Done For You</td><td>$2,997</td><td>$1,497/mo</td>
+          <td>+ full custom AI ecosystem, weekly executive coaching, done-for-you content, lead-gen automation, dedicated strategist, white-glove support</td>
+        </tr>
+      </table>
+      <div class="addon-note">
+        <strong style="color:var(--navy);">Group discounts:</strong> 2-4 advisors 10% off · 5-9 advisors 15% off · 10+ advisors 20% off + custom setup. Annual plans: 2 months free.<br/><br/>
+        <strong style="color:var(--navy);">Add-ons:</strong> Marketing Plan ($2,500 flat) · extra coaching ($297/session) · AI chat widget ($497 setup + $97/mo) · compliance review ($397/quarter) · video content ($597/mo) · staff training ($397/session) · extra advisor seat (+$197/mo)
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏢 General Business</div>
+      <table>
+        <tr><th>Tier</th><th>Monthly</th><th>Includes</th></tr>
+        <tr>
+          <td>Essentials</td><td>$199/mo</td>
+          <td>Full assessment + report, 30-day action plan, 1× monthly 45-min call, tool recommendations, automation templates, email support</td>
+        </tr>
+        <tr>
+          <td class="tier-popular">Growth ★</td><td>$490/mo</td>
+          <td>+ 90-day roadmap, 2× monthly 60-min calls, tool setup support, training for up to 5 staff, priority support, monthly report</td>
+        </tr>
+        <tr>
+          <td>Scale</td><td>Starting at $999/mo</td>
+          <td>+ dedicated consultant, custom development, unlimited staff training, system integration, quarterly reviews, SLA support</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer-note">Elevate Go-Live Toolkit · elevatemy.ai · internal reference, not client-facing</div>
+</div>
+
+</body>
+</html>
