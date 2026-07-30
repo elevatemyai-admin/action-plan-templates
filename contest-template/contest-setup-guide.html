@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contest Template — Setup Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1B3A6B;--navy-light:#2A4E8C;
+  --teal:#00A99D;--teal-light:#5BC8C0;--teal-pale:#E1F5F4;
+  --amber:#C4773B;--amber-pale:#FAEEDA;
+  --cream:#F8F6F2;--cream-dark:#EDE9E1;
+  --white:#fff;--text-dark:#1a1a1a;--text-muted:#5a5a5a;--border:#ddd9d0;--sand:#8B7355;
+  --radius:14px;--radius-sm:9px;--radius-lg:22px;
+}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text-dark);line-height:1.65;font-size:16px;}
+.wrap{max-width:880px;margin:0 auto;padding:0 1.5rem 6rem;}
+
+.progress-bar{position:sticky;top:0;z-index:50;background:var(--navy);color:var(--cream);padding:0.7rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+.progress-bar .label{font-size:12.5px;font-weight:600;letter-spacing:0.05em;}
+.progress-track{flex:1;max-width:260px;height:8px;background:rgba(255,255,255,0.15);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--teal-light);width:0%;transition:width .25s;}
+.progress-count{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--teal-light);}
+.print-btn{background:var(--teal);color:#fff;border:none;padding:7px 16px;border-radius:20px;font-size:12.5px;font-weight:600;cursor:pointer;}
+
+.doc-header{text-align:center;margin:2.5rem 0 2rem;padding-bottom:2rem;border-bottom:2px solid var(--cream-dark);}
+.doc-eyebrow{font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--amber);margin-bottom:.75rem;}
+.doc-title{font-family:'Bricolage Grotesque',serif;font-size:2.1rem;font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:.6rem;}
+.doc-sub{font-size:14.5px;color:var(--text-muted);max-width:600px;margin:0 auto;}
+.who-note{background:var(--teal-pale);color:var(--navy);border-radius:20px;padding:8px 18px;font-size:12.5px;font-weight:600;display:inline-block;margin-top:1rem;}
+
+.file-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:2rem;}
+.file-table th{text-align:left;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--sand);padding:8px 10px;border-bottom:2px solid var(--cream-dark);}
+.file-table td{padding:9px 10px;border-bottom:1px solid var(--cream-dark);vertical-align:top;}
+.file-table code{background:var(--cream-dark);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;}
+
+.section{margin-bottom:2rem;}
+.step-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem;overflow:hidden;}
+.step-head{display:flex;align-items:center;gap:0.9rem;padding:1.1rem 1.4rem;background:var(--navy);color:var(--white);cursor:pointer;}
+.step-head .step-num{font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:1.3rem;color:var(--teal-light);width:36px;flex-shrink:0;}
+.step-head .step-title{flex:1;font-weight:700;font-size:15.5px;}
+.step-head .step-who{font-size:11px;color:rgba(255,255,255,0.6);font-weight:500;}
+.step-toggle{font-size:0.7rem;color:rgba(255,255,255,0.6);transition:transform .2s;}
+.step-card.expanded .step-toggle{transform:rotate(180deg);}
+.step-body{display:none;padding:1.2rem 1.4rem;}
+.step-card.expanded .step-body{display:block;}
+
+.step-body ol,.step-body ul{padding-left:1.3rem;margin-bottom:0.9rem;}
+.step-body li{margin-bottom:0.5rem;font-size:14px;}
+.step-body p{font-size:14px;margin-bottom:0.8rem;color:var(--text-dark);}
+.step-body p:last-child{margin-bottom:0;}
+
+code{font-family:'JetBrains Mono',monospace;background:var(--cream-dark);padding:1px 6px;border-radius:4px;font-size:0.87em;color:var(--navy);}
+pre{background:var(--navy);color:var(--teal-pale);padding:1rem 1.2rem;border-radius:var(--radius-sm);overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.6;margin:0.8rem 0;}
+pre code{background:none;color:inherit;padding:0;}
+
+.mini-table{width:100%;border-collapse:collapse;font-size:13px;margin:0.6rem 0;}
+.mini-table th{text-align:left;font-size:10px;letter-spacing:0.05em;text-transform:uppercase;color:var(--sand);padding:6px 8px;border-bottom:2px solid var(--cream-dark);}
+.mini-table td{padding:7px 8px;border-bottom:1px solid var(--cream-dark);}
+
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:0.5rem 0;}
+.check-item input[type=checkbox]{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--teal);cursor:pointer;}
+.check-item label{font-size:14px;color:var(--text-dark);cursor:pointer;}
+.check-item.checked label{color:var(--sand);text-decoration:line-through;}
+
+.note-box{background:var(--teal-pale);border-left:4px solid var(--teal);border-radius:var(--radius-sm);padding:0.9rem 1.1rem;font-size:13px;color:var(--navy);margin:0.8rem 0;}
+.warn-box{background:var(--amber-pale);border-left:4px solid var(--amber);border-radius:var(--radius-sm);padding:0.9rem 1.1rem;font-size:13px;color:#7a4d15;margin:0.8rem 0;}
+
+.reuse-section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem 1.6rem;}
+.reuse-section h3{font-family:'Bricolage Grotesque',serif;color:var(--navy);font-size:1.1rem;margin-bottom:0.7rem;}
+
+footer{text-align:center;margin-top:2.5rem;font-size:12px;color:var(--sand);}
+@media print{.progress-bar{position:static;}.step-body{display:block !important;}}
+</style>
+</head>
+<body>
+
+<div class="progress-bar">
+  <span class="label">✓ Setup progress</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <span class="progress-count" id="progressCount">0 / 0</span>
+  <button class="print-btn" onclick="window.print()">Print / Save</button>
+</div>
+
+<div class="wrap">
+
+  <div class="doc-header">
+    <div class="doc-eyebrow">Contest Template</div>
+    <div class="doc-title">Setup Guide</div>
+    <div class="doc-sub">Submission + live-voting + auto-leaderboard microsite. Lives as a folder inside the client's existing repo, deployed as its own Vercel project. Do the New Client Setup Guide first, then this.</div>
+    <div class="who-note">Written for zero prior Vercel/GitHub/Airtable experience</div>
+  </div>
+
+  <div class="section">
+    <table class="file-table">
+      <tr><th>Piece</th><th>File</th><th>What it does</th></tr>
+      <tr><td>Landing page</td><td><code>public/index.html</code></td><td>Hero, "how it works," submission form, live gallery + vote counter</td></tr>
+      <tr><td>Submission handler</td><td><code>api/submit-entry.js</code></td><td>Uploads the photo, writes a "Pending" row to Airtable</td></tr>
+      <tr><td>Gallery/counter feed</td><td><code>api/entries.js</code></td><td>Returns approved entries + vote counts, polled every 25s</td></tr>
+      <tr><td>Vote webhook</td><td><code>api/vote-webhook.js</code></td><td>Called by Make.com when a Zeffy donation comes in</td></tr>
+      <tr><td>Leaderboard image</td><td><code>api/leaderboard-image.js</code></td><td>Auto-renders the branded PNG Buffer posts</td></tr>
+    </table>
+    <div class="note-box">All four <code>/api</code> functions run on Vercel's <b>Edge runtime</b>, not classic Node serverless — don't delete the <code>export const config = { runtime: "edge" }</code> line in those files.</div>
+  </div>
+
+  <div class="section" id="stepsContainer"></div>
+
+  <div class="section">
+    <div class="reuse-section">
+      <h3>Reusing this for the next client</h3>
+      <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:0.8rem;">Everything below needs to change per client; everything not listed copies over unchanged:</p>
+      <ul style="padding-left:1.3rem;font-size:13.5px;color:var(--text-dark);">
+        <li style="margin-bottom:0.4rem;">The animal dropdown list in <code>public/index.html</code></li>
+        <li style="margin-bottom:0.4rem;">The brand colors in <code>public/index.html</code> and the <code>CONFIG</code> block in <code>api/leaderboard-image.js</code></li>
+        <li style="margin-bottom:0.4rem;">The Airtable base (new base, Steps 02–03, per client)</li>
+        <li style="margin-bottom:0.4rem;">The Zeffy form and Make.com scenario (Steps 06–07, per client)</li>
+        <li>The Vercel project + its Root Directory setting (Step 01, per client) — new folder in their existing repo (or new repo if it's their first project), new Vercel project pointed at it</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>Contest Template · elevatemy.ai · click any step above to expand it</footer>
+</div>
+
+<script>
+const STEPS = [
+  {
+    title: "Get the code into the client's repo + Vercel",
+    who: "10 min",
+    body: `
+      <div class="note-box">This part isn't contest-specific — it's the same repo/Vercel pattern used for every project type. Follow the <b>New Client Setup Guide</b> for the exact steps: upload this template's files into a <code>contest/</code> folder in the client's existing repo (or a new repo if this is their first project), then create a Vercel project pointed at that folder with Root Directory set to <code>contest</code>.</div>
+      <p>Come back here once that project has a live (if broken-looking) URL — the rest of this guide picks up from there.</p>
+    `
+  },
+  {
+    title: "Create the Airtable base",
+    who: "10 min",
+    body: `
+      <p>Airtable's API can't create tables or fields on a brand-new base, so this part has to happen by hand, every time, for every client:</p>
+      <ol>
+        <li>Go to <b>airtable.com</b> and log in</li>
+        <li>Click <b>Create a base</b> → <b>Start from scratch</b></li>
+        <li>Name it <b>"[Client] Contest Entries"</b></li>
+        <li>Rename the default table (double-click the tab, bottom-left) to <code>Entries</code></li>
+        <li>Delete the default columns, then add these fields exactly:</li>
+      </ol>
+      <table class="mini-table">
+        <tr><th>Field name</th><th>Type</th><th>Notes</th></tr>
+        <tr><td><code>Child Name</code></td><td>Single line text</td><td></td></tr>
+        <tr><td><code>Age</code></td><td>Number → Integer</td><td></td></tr>
+        <tr><td><code>Animal</code></td><td>Single line text</td><td></td></tr>
+        <tr><td><code>Photo</code></td><td>Attachment</td><td></td></tr>
+        <tr><td><code>Parent Email</code></td><td>Email</td><td></td></tr>
+        <tr><td><code>Status</code></td><td>Single select</td><td>Options: Pending, Approved, Rejected</td></tr>
+        <tr><td><code>Votes</code></td><td>Number → Integer</td><td>Default 0</td></tr>
+        <tr><td><code>Entry Code</code></td><td>Formula</td><td><code>"[XX]-" & RIGHT("000" & RECORD_ID(), 3)</code> — pick a 2-letter code for this client</td></tr>
+      </table>
+      <div class="note-box">Switch to <b>Grid view</b> and drag the <code>Photo</code> column near the front — Airtable shows photo thumbnails right there, which is what makes approving entries a glance-and-click instead of opening a folder of attachments.</div>
+    `
+  },
+  {
+    title: "Get your Airtable credentials",
+    who: "5 min",
+    body: `
+      <ol>
+        <li>In Airtable, click your profile icon → <b>Developer hub</b></li>
+        <li>Click <b>Personal access tokens</b> → <b>Create new token</b></li>
+        <li>Name it anything (e.g. "Contest Template")</li>
+        <li>Under <b>Scopes</b>, add <code>data.records:read</code> and <code>data.records:write</code></li>
+        <li>Under <b>Access</b>, add the specific base you just created (not "all bases")</li>
+        <li>Click <b>Create token</b> — <b>copy it immediately</b>, Airtable only shows it once</li>
+        <li>Find your <b>Base ID</b>: open the base → <b>Help</b> ("?" icon) → <b>API documentation</b> — starts with <code>app</code></li>
+      </ol>
+      <div class="warn-box">You should now have two things saved safely: the token (starts with <code>pat...</code>) and the Base ID (starts with <code>app...</code>).</div>
+    `
+  },
+  {
+    title: "Add the environment variables in Vercel",
+    who: "10 min",
+    body: `
+      <ol>
+        <li>Go back to <b>vercel.com</b> and open this client's <code>[client-name]-contest</code> project (not their action-plan project — separate settings even if they share a repo)</li>
+        <li>Click <b>Settings</b> in the <b>left nav</b> → <b>Environment Variables</b></li>
+        <li>Add each of these one at a time — type the name, paste the value, click <b>Save</b>:</li>
+      </ol>
+      <table class="mini-table">
+        <tr><th>Variable name</th><th>Value</th></tr>
+        <tr><td><code>AIRTABLE_API_KEY</code></td><td>the <code>pat...</code> token from Step 3</td></tr>
+        <tr><td><code>AIRTABLE_BASE_ID</code></td><td>the <code>app...</code> ID from Step 3</td></tr>
+        <tr><td><code>WEBHOOK_SECRET</code></td><td>make up any random password-like string</td></tr>
+      </table>
+      <p><b>Enable Blob storage</b> (creates the last variable automatically):</p>
+      <ol>
+        <li>Click <b>Storage</b> in the <b>left nav</b> → <b>Create Database</b> → <b>Blob</b> → <b>Continue</b> → <b>Create</b></li>
+        <li>Click <b>Connect Project</b> and select this client's <code>[client-name]-contest</code> project specifically — Vercel adds <code>BLOB_READ_WRITE_TOKEN</code> automatically</li>
+      </ol>
+    `
+  },
+  {
+    title: "Redeploy",
+    who: "2 min",
+    body: `
+      <p>Adding environment variables doesn't automatically update the live site — it needs one more deploy to pick them up:</p>
+      <ol>
+        <li>Make sure you're inside the <code>[client-name]-contest</code> project specifically (not the team-wide Deployments list, which mixes every project together and gets confusing fast)</li>
+        <li>Click <b>Deployments</b> in the <b>left nav</b></li>
+        <li>Find the most recent deployment, click <b>⋯</b> on the right</li>
+        <li>Click <b>Redeploy</b> → confirm</li>
+      </ol>
+      <p>The site is now live and fully wired to Airtable.</p>
+    `
+  },
+  {
+    title: "Set up Zeffy",
+    who: "10 min · needs your Zeffy login",
+    body: `
+      <ol>
+        <li>Log into Zeffy, create a new custom donation form</li>
+        <li>Add a dropdown listing each approved entry, formatted like: <code>CL-014 — Example Entry Title by Firstname, age 9</code> (the code must match Airtable's <code>Entry Code</code> exactly)</li>
+        <li>Set suggested donation amounts: $1 / $5 / $10</li>
+        <li>Update this dropdown as new entries get approved</li>
+        <li>Copy the form's public link for the landing page's "Vote Now" button</li>
+      </ol>
+    `
+  },
+  {
+    title: "Set up Make.com",
+    who: "15 min · needs your Make.com login",
+    body: `
+      <ol>
+        <li>Log into Make.com, click <b>Create a new scenario</b></li>
+        <li>Add a trigger watching for new Zeffy donations (Zeffy's own integration if available, or an email-parsing trigger on the receipt email if not)</li>
+        <li>Pull the entry code and dollar amount out of that donation</li>
+        <li>Add an <b>HTTP</b> module → <b>Make a request</b>:</li>
+      </ol>
+      <pre><code>URL: https://[your-vercel-domain]/api/vote-webhook
+Method: POST
+Body type: JSON
+Body: { "entryCode": "CL-014", "amount": 5, "secret": "[your WEBHOOK_SECRET]" }</code></pre>
+      <p>Map <code>entryCode</code> and <code>amount</code> to the parsed values above rather than hardcoding them, then turn the scenario <b>on</b>.</p>
+    `
+  },
+  {
+    title: "Connect Buffer",
+    who: "5 min · needs your Buffer login",
+    body: `
+      <p>Point a scheduled post, 2–3x/week, at:</p>
+      <pre><code>https://[your-vercel-domain]/api/leaderboard-image</code></pre>
+      <p>Buffer fetches and posts whatever the image looks like at send time — since it's generated live from Airtable, there's nothing to manually update before each post.</p>
+    `
+  },
+  {
+    title: "Test everything end-to-end before telling anyone it's live",
+    who: "10 min",
+    isChecklist: true,
+    body: `
+      <div class="check-item"><input type="checkbox"/><label>Submit a real test entry through the live form</label></div>
+      <div class="check-item"><input type="checkbox"/><label>Go to Airtable, find it, change Status to Approved</label></div>
+      <div class="check-item"><input type="checkbox"/><label>Refresh the landing page — confirm the entry appears in the gallery within ~25 seconds</label></div>
+      <div class="check-item"><input type="checkbox"/><label>Submit a test donation through the Zeffy form with the matching entry code</label></div>
+      <div class="check-item"><input type="checkbox"/><label>Confirm the vote count on the landing page goes up</label></div>
+      <div class="check-item"><input type="checkbox"/><label>Visit /api/leaderboard-image directly and confirm it shows the test entry</label></div>
+    `
+  }
+];
+
+const container = document.getElementById('stepsContainer');
+STEPS.forEach((step, i) => {
+  const card = document.createElement('div');
+  card.className = 'step-card';
+  card.innerHTML = `
+    <div class="step-head" onclick="this.parentElement.classList.toggle('expanded')">
+      <span class="step-num">${String(i).padStart(2,'0')}</span>
+      <span class="step-title">${step.title}</span>
+      <span class="step-who">${step.who}</span>
+      <span class="step-toggle">▼</span>
+    </div>
+    <div class="step-body">${step.body}</div>
+  `;
+  container.appendChild(card);
+});
+// Open the first step by default
+container.firstElementChild.classList.add('expanded');
+
+function updateProgress(){
+  const boxes = document.querySelectorAll('input[type=checkbox]');
+  const checked = document.querySelectorAll('input[type=checkbox]:checked');
+  document.getElementById('progressCount').textContent = checked.length + ' / ' + boxes.length;
+  const pct = boxes.length ? (checked.length/boxes.length)*100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+document.addEventListener('change', (e) => {
+  if(e.target.matches('input[type=checkbox]')){
+    e.target.closest('.check-item')?.classList.toggle('checked', e.target.checked);
+    updateProgress();
+  }
+});
+updateProgress();
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "contest-template",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Reusable art-contest microsite: submission, moderation-ready gallery, live vote counter, and an auto-generated leaderboard image for social.",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@vercel/blob": "^0.27.0",
+    "@vercel/og": "^0.6.3"
+  }
+}
